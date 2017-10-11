@@ -1,0 +1,35 @@
+---
+- include: redhat-sensu.yml
+  when: ansible_os_family=="RedHat"
+
+- include: debian-sensu.yml
+  when: ansible_os_family=="Debian"
+
+- name: copy sensu config file
+  template: src=config.json dest=/etc/sensu/conf.d/config.json
+  notify: restart sensu-client
+
+- name: copy graphite config file
+  template: src=graphite_tcp.json dest=/etc/sensu/conf.d/graphite_tcp.json
+  notify: restart sensu-client
+
+- name: copy rabbitmq config file
+  template: src=rabbitmq.json dest=/etc/sensu/conf.d/rabbitmq.json
+  notify: restart sensu-client
+
+- name: copy sensu plugin files
+  copy: 
+    src: "{{ item }}"
+    dest: /etc/sensu/plugins/
+    mode: 0777
+  with_fileglob:
+    - "{{ role_path }}/files/plugins/*"
+  notify: restart sensu-client
+
+- name: copy sensu plugin config files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/sensu/conf.d/
+  with_fileglob:
+    - "{{ role_path }}/files/conf/*"
+  notify: restart sensu-client

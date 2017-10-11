@@ -1,0 +1,22 @@
+---
+- name: copy sensu deb files
+  copy:
+    src: "{{ role_path }}/files/sensu_0.20.0-8_ppc64el.deb"
+    dest: /tmp/sensu.deb
+
+- name: install sensu deb
+  apt: deb="/tmp/sensu.deb"
+  notify: restart sensu-client
+
+- name: delete sensu deb
+  file: path=/tmp/sensu.deb state=absent
+
+- name: install sensu plugin packages
+  apt:
+    name:
+      - python-psutil
+      - python-pip
+      - python-ethtool
+
+- name: toolz installation through pip
+  pip: name=toolz

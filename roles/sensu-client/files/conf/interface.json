@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "interface_metrics": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/interface.py",
+      "interval": 1800,
+          "subscribers": ["sensu-client"]
+    }
+  }
+}

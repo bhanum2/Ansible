@@ -1,0 +1,14 @@
+---
+- name: pynvml installation through pip
+  pip: name=nvidia-ml-py
+
+- name: copy sensu gpu plugin files
+  copy:
+    src: "{{ item }}"
+    dest: /etc/sensu/plugins/
+    mode: 0777
+  with_fileglob:
+    - "{{ role_path }}/files/plugins/*"
+
+- name: copy sensu config file
+  template: src=config.json dest=/etc/sensu/conf.d/config.json

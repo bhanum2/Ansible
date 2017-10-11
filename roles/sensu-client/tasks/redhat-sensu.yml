@@ -1,0 +1,18 @@
+---
+- name: copy sensu rpm files
+  copy:
+    src: "{{ role_path }}/files/sensu-0.22.0-1.ppc64le.rpm"
+    dest: /tmp/sensu.rpm
+
+- name: install sensu rpm
+  yum: name=/tmp/sensu.rpm state=present
+  notify: restart sensu-client
+
+- name: delete sensu rpm
+  file: path=/tmp/sensu.rpm state=absent
+
+- name: install sensu plugin packages
+  yum:
+    name:
+      - python-psutil
+      - python-toolz

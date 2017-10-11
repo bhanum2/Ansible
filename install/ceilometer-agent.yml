@@ -1,0 +1,6 @@
+---
+- name: Install ceilometer-agent
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: openstack/ceilometer-agent, sudo: yes}

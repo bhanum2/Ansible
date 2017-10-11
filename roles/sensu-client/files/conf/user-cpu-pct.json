@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "user-cpu-pct": {
+      "type": "metric",
+      "handlers": ["graphite"],
+      "command": "/etc/sensu/plugins/user-cpu-pct.py",
+      "interval": 1800,
+          "subscribers": ["sensu-client"]
+    }
+  }
+}

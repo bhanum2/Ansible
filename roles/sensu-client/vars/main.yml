@@ -1,0 +1,4 @@
+---
+sensu_server: 
+sensu_user:  sensu
+sensu_secret:  secret

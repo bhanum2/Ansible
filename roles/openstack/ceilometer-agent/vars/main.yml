@@ -1,0 +1,26 @@
+---
+#update varibles before running playbook
+#ceilometer_dbconnection:  mongodb://ceilometer:TODO@IP:27017/ceilometer
+
+#auth_uri: http://vip:5000/v2.0
+#admin_tenant_name: services
+#identity_uri: http://vip:35357
+#admin_user: ceilometer
+#admin_password: ceilometer
+
+#rabbit_host:  vip
+#rabbit_hosts: n1:5672,n2:5672,n3:5672
+#rabbit_userid: amqp_user
+#rabbit_password: todo
+#rabbit_ha_queues: true
+#amqp_durable_queues: true
+
+#auth_type: password
+#auth_url: http://vip:5000/v2.0
+#project_name: services
+#username: ceilometer
+#password: ceilometer
+#interface: internalURL
+#region_name:  TODO
+
+
