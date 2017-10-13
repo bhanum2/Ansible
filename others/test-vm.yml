@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  
+  tasks:
+
+    - name: Check if TARGET_IP is exported
+      set_fact: 
+        ip: "{{ lookup('env','TARGET_IP') }}"
+      failed_when: ip  == ""
+
+    - name: Check if TARGET_ROOT_PASSWORD is exported
+      set_fact: 
+        root_password: "{{ lookup('env','TARGET_ROOT_PASSWORD') }}"
+      failed_when: root_password  == ""
+
+    - name: Check if TARGET_SSH_USER is exported
+      set_fact: 
+        ssh_user: "{{ lookup('env','TARGET_SSH_USER') }}"
+      failed_when: ssh_user  == ""
+    - debug:
+        var: root_password2 
+
+    - name: Check if TARGET_SSH_PASSWORD is exported
+      set_fact: 
+        ssh_user_password: "{{ lookup('env','TARGET_SSH_PASSWORD') }}"
+      failed_when: ssh_user_password  == ""
+
+    - name: Disable Ansible Host key checking
+      shell:  "export ANSIBLE_HOST_KEY_CHECKING=False"
+
+    - name: Install sshpass package
+      package:
+        name: sshpass
+        state: present
+      become: yes
+
+    - name: Test: root ssh password should not work 
+      command: sshpass -p {{ root_password }} ssh root@{{ ip }} 'echo success'
+      register: output
+      ignore_errors: true
+      failed_when: output.rc == 0 
+
+    - name: Test: user  ssh password should is working
+      command: sshpass -p {{ ssh_user_password }} ssh {{ ssh_user }}@{{ ip }} 'echo success'
+
+    - name: Adding target node
+      add_host: 
+        name: "{{ ip }}"
+        groups: target_node
+        ansible_user: "{{ ssh_user }}"
+        ansible_password: "{{ ssh_user_password }}"
+        host_key_checking: False
+
+- hosts: target_node
+
+  tasks:
+    - name: Test swap space
+      command: cat /proc/swaps | wc -l
+      register: swap_output
+      ignore_errors: true
+      failed_when: swap_output == "1" 
+
+    - name: Get hostname
+      command: hostname
+      register: target_hostname
+    
+    - name: Test hostname in /etc/hosts file
+      command: grep  {{ target_hostname.stdout_lines[0] }} /etc/hosts
+      ignore_errors: true
+
+    - name: Test firefox pkg installation works
+      package: 
+        name: firefox
+        state: present
+      become: yes
+      ignore_errors: true
+   
