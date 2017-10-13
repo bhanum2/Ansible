@@ -17,8 +17,6 @@
       set_fact: 
         ssh_user: "{{ lookup('env','TARGET_SSH_USER') }}"
       failed_when: ssh_user  == ""
-    - debug:
-        var: root_password2 
 
     - name: Check if TARGET_SSH_PASSWORD is exported
       set_fact: 
