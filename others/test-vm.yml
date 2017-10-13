@@ -32,13 +32,13 @@
         state: present
       become: yes
 
-    - name: Test: root ssh password should not work 
+    - name: Check root ssh password should not work 
       command: sshpass -p {{ root_password }} ssh root@{{ ip }} 'echo success'
       register: output
       ignore_errors: true
       failed_when: output.rc == 0 
 
-    - name: Test: user  ssh password should is working
+    - name: Check user  ssh password should is working
       command: sshpass -p {{ ssh_user_password }} ssh {{ ssh_user }}@{{ ip }} 'echo success'
 
     - name: Adding target node
