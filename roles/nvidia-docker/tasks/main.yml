@@ -1,0 +1,32 @@
+---
+- name: install nvidia 384.81 drivers  for P100
+  apt:
+    deb: http://us.download.nvidia.com/tesla/384.81/nvidia-driver-local-repo-ubuntu1604-384.81_1.0-1_ppc64el.deb
+
+- name: install cuda drivers
+  apt:
+    name:
+     - nvidia-384
+     - cuda-drivers
+    update_cache: yes
+    allow_unauthenticated: yes
+
+- name: install docker
+  apt: name=docker.io
+
+- name: copy nvidia-docker  deb files
+  copy:
+    src: "{{ role_path }}/files/nvidia-docker_1.0.1-1_ppc64el.deb"
+    dest: /tmp/nvidia-docker_1.0.1-1_ppc64el.deb
+
+- name: install nvidia-docker deb
+  apt: deb="/tmp/nvidia-docker_1.0.1-1_ppc64el.deb"
+
+- name: delete nvidia-docker deb
+  file: path=/tmp/nvidia-docker_1.0.1-1_ppc64el.deb state=absent
+
+- name: install python-pip
+  apt: name=python-pip
+
+- name: install dockerdevice through pip
+  pip: name=dockerdevice

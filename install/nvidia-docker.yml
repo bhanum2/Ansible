@@ -1,0 +1,6 @@
+---
+- name: Install nvidia-docker
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: nvidia-docker, sudo: yes}
