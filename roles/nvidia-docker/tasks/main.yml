@@ -33,3 +33,6 @@
 
 - name: install dockerdevice through pip
   pip: name=dockerdevice
+
+- name: create nvidia-docker volume
+  command: docker volume create --name=nvidia_driver_384.81 --driver=nvidia-docker
