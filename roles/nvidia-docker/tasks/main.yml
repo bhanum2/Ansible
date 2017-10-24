@@ -31,8 +31,14 @@
 - name: install python-pip
   apt: name=python-pip
 
+- name: update pip
+  command: pip install --upgrade pip
+
 - name: install dockerdevice through pip
-  pip: name=dockerdevice
+  pip: 
+    name:
+      - docker-py
+      - dockerdevice
 
 - name: create nvidia-docker volume
   command: docker volume create --name=nvidia_driver_384.81 --driver=nvidia-docker
