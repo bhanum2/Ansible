@@ -11,8 +11,11 @@
     update_cache: yes
     allow_unauthenticated: yes
 
-- name: install docker
-  apt: name=docker.io
+- name: install docker and compose
+  apt: 
+    name:
+     - docker.io
+     - docker-compose
 
 - name: copy nvidia-docker  deb files
   copy:
