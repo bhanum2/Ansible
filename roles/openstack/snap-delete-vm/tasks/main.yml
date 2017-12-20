@@ -1,0 +1,13 @@
+---
+# use pip version of ansible and shade only
+- name: snap the instance
+  command: nova image-create {{ansible_vm.server.id}} {{ansible_snap_name}}
+
+- name: sleep for 1 mins for snapshot operation
+  pause:
+    minutes: 1
+
+- name: delete instance
+  os_server:
+    state: absent
+    name: "{{ansible_vm.server.name}}"
