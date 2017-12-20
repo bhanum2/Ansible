@@ -1,0 +1,9 @@
+---
+ansible_vm: ansible_vm
+image_id: TODO
+flavor_id: TODO
+net_name: TODO
+ext_net: TODO
+vm_ssh_user: ansible_user
+vm_root_passwd: TODO
+vm_ssh_passwd: TODO

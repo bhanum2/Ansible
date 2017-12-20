@@ -1,0 +1,6 @@
+---
+- name: create vm on openstack
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/create-vm, sudo: yes}
