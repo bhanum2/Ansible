@@ -1,4 +1,5 @@
 ---
+# use pip version of ansible and shade only
 - name: Create a new instance 
   os_server:
     state: present
