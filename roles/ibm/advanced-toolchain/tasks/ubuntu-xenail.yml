@@ -1,0 +1,25 @@
+---
+- name: add advanced-toolchain repo
+  apt_repository:
+    repo: deb ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/ubuntu xenial at11.0
+    state: present
+
+- name: download key
+  get_url: 
+    url: ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/ubuntu/dists/xenial/6976a827.gpg.key
+    dest: /tmp/6976a827.gpg.key
+
+- name: add apt key 
+  apt_key:
+    file: /tmp/6976a827.gpg.key
+    state: present
+
+- name: Update repositories and install advanced tool chain 11.0
+  apt:
+    name:
+       - advance-toolchain-at11.0-runtime 
+       - advance-toolchain-at11.0-devel 
+       - advance-toolchain-at11.0-perf 
+       - advance-toolchain-at11.0-mcore-libs
+    state: latest
+    update_cache: yes

@@ -1,0 +1,11 @@
+---
+- name: install advanced tool chain
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/create-vm, sudo: yes}
+
+- name: install advanced tool chain
+  hosts: ansible_vm
+  roles:
+    - { role: ibm/advanced-toolchain, sudo: yes}

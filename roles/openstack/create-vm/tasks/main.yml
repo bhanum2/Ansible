@@ -26,6 +26,8 @@
     name: ansible_vm
     ansible_host: "{{ansible_vm.server.public_v4}}"
     ansible_user: "{{vm_ssh_user}}"
+    ansible_password: "{{vm_ssh_passwd}}"
+    ansible_python_interpreter: /usr/bin/python3
     ansible_become: true
 
 - name: Wait 300 seconds for port 22 to become open on the host
