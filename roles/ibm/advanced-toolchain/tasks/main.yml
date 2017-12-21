@@ -1,9 +1,6 @@
 ---
-- debug:
-  var: ansible_os_family
-- debug:
-  var: ansible_distribution_release
-- debug:
-  var: ansible_distribution_version
 - include: ubuntu-xenail.yml
   when: ansible_os_family=="Debian" and ansible_distribution_release == 'xenial'
+
+- include: redhat.yml
+  when: ansible_os_family=="RedHat"

@@ -1,0 +1,25 @@
+---
+- name: Add yum repository
+  yum_repository:
+    name: AT11.0
+    description: Advance Toolchain Unicamp FTP
+    enabled: True
+    baseurl: ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/redhat/RHEL7
+
+- name: download key
+  get_url: 
+    url: ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/redhat/RHEL7/gpg-pubkey-6976a827-5164221b
+    dest: /tmp/gpg-pubkey-6976a827-5164221b
+
+- name: add rpm key
+  rpm_key:
+    key: /tmp/gpg-pubkey-6976a827-5164221b
+    state: present
+
+- name: Update repositories and install advanced tool chain 11.0
+  yum:
+    name:
+       - advance-toolchain-at11.0-runtime 
+       - advance-toolchain-at11.0-devel 
+       - advance-toolchain-at11.0-perf 
+    state: latest
