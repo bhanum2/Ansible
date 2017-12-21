@@ -7,3 +7,5 @@ ext_net: TODO
 vm_ssh_user: ansible_user
 vm_root_passwd: TODO
 vm_ssh_passwd: TODO
+ansible_python_ver_path: /usr/bin/python2
+#for ubuntu 16.04 user python3

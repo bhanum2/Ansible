@@ -12,22 +12,24 @@
     userdata: |
             #cloud-config
             debug: true
-            user: "{{vm_ssh_user}}"
             disable_root: false
             ssh_pwauth: True
             sudo: ALL=(ALL) NOPASSWD:ALL
+            runcmd:
+               - [sed, -i, 's/.*PermitRootLogin.*/PermitRootLogin yes/g', /etc/ssh/sshd_config]
+               - [systemctl, restart, sshd]
             chpasswd:
               list: |
                    root:{{vm_root_passwd}}
-                   {{vm_ssh_user}}:{{vm_ssh_passwd}}
               expire: False
   register: ansible_vm
+
 - add_host:
     name: ansible_vm
     ansible_host: "{{ansible_vm.server.public_v4}}"
-    ansible_user: "{{vm_ssh_user}}"
-    ansible_password: "{{vm_ssh_passwd}}"
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_user: root
+    ansible_password: "{{vm_root_passwd}}"
+    ansible_python_interpreter: "{{ansible_python_ver_path}}"
     ansible_become: true
 
 - name: Wait 300 seconds for port 22 to become open on the host
