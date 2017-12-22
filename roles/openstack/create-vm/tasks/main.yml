@@ -16,7 +16,7 @@
             ssh_pwauth: True
             sudo: ALL=(ALL) NOPASSWD:ALL
             runcmd:
-               - [sed, -i, 's/.*PermitRootLogin.*/PermitRootLogin yes/g', /etc/ssh/sshd_config]
+               - [sed, -i, 's/^PermitRootLogin.*/PermitRootLogin yes/g', /etc/ssh/sshd_config]
                - [systemctl, restart, sshd]
             chpasswd:
               list: |

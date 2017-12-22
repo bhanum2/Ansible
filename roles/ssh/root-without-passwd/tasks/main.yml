@@ -1,0 +1,6 @@
+---
+- name: set ssh permit root login to without-password
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin without-password'

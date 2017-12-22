@@ -1,0 +1,23 @@
+---
+- name: add xl compiler repo 
+  apt_repository:
+    repo: deb http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/ubuntu/ "{{ansible_distribution_release}}" main 
+    state: present
+
+- name: download key
+  get_url: 
+    url: http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/ubuntu/public.gpg
+    dest: /tmp/xl.key
+
+- name: add apt key 
+  apt_key:
+    file: /tmp/xl.key
+    state: present
+
+- name: install xlc xlf compilers
+  apt:
+    name:
+       - xlc
+       - xlf
+    state: latest
+    update_cache: yes

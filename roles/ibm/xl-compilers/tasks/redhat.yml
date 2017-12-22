@@ -1,0 +1,24 @@
+---
+- name: Add yum repository
+  yum_repository:
+    name: ibm-xl-compiler-eval
+    description: ibm-xl-compiler-eval
+    enabled: True
+    baseurl: http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/rhel7/
+
+- name: download key
+  get_url: 
+    url: http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/rhel7/repodata/repomd.xml.key
+    dest: /tmp/xl.key
+
+- name: add rpm key
+  rpm_key:
+    key: /tmp/xl.key
+    state: present
+
+- name: install xlc xlf compilers
+  yum:
+    name:
+       - xlc
+       - xlf
+    state: latest
