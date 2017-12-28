@@ -1,0 +1,6 @@
+---
+- name: update set hostname to always in cloud.cfg
+  lineinfile:
+    path: /etc/cloud/cloud.cfg
+    regexp: 'set_hostname'
+    line: ' - [set_hostname, always]'

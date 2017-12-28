@@ -1,0 +1,20 @@
+---
+- name: create vm
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/create-vm, sudo: yes}
+
+- name: install xl compilers and advanced tool chain
+  hosts: ansible_vm
+  roles:
+    -  { role: ibm/xl-compilers, sudo: yes}
+    -  { role: ibm/advanced-toolchain, sudo: yes}
+    -  { role: ssh/root-without-passwd, sudo: yes}
+    -  { role: cloud-init/set-hostname-always, sudo: yes}
+
+- name: snap and delete vm
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/snap-delete-vm, sudo: yes}
