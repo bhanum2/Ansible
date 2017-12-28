@@ -1,5 +1,6 @@
 ---
 # use pip version of ansible and shade only
+# for ubuntu14 use  - [service, ssh, restart]
 - name: Create a new instance 
   os_server:
     state: present

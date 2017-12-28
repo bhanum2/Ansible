@@ -6,7 +6,7 @@
   when: ansible_os_family=="RedHat"
 
 - name: configure xlc compiler
-  shell: echo 1 | /opt/ibm/xlC/13.1.5/bin/xlc_configure
+  shell: echo 1 | /opt/ibm/xlC/13.1.6/bin/xlc_configure
 
 - name: configure xlf compiler
-  shell: echo 1 | /opt/ibm/xlf/15.1.5/bin/xlf_configure
+  shell: echo 1 | /opt/ibm/xlf/15.1.6/bin/xlf_configure
