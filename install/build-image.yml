@@ -8,10 +8,11 @@
 - name: install xl compilers and advanced tool chain
   hosts: ansible_vm
   roles:
-    -  { role: ibm/xl-compilers, sudo: yes}
-    -  { role: ibm/advanced-toolchain, sudo: yes}
     -  { role: ssh/root-without-passwd, sudo: yes}
     -  { role: cloud-init/set-hostname-always, sudo: yes}
+    -  { role: cloud-init/manage-etc-hosts, sudo: yes}
+    -  { role: ibm/xl-compilers, sudo: yes}
+    -  { role: ibm/advanced-toolchain, sudo: yes}
 
 - name: snap and delete vm
   hosts: localhost

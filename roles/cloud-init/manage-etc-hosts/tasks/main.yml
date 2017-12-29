@@ -1,0 +1,6 @@
+---
+- name: update manage_etc_hosts in cloud.cfg
+  lineinfile:
+    path: /etc/cloud/cloud.cfg
+    insertafter: EOF 
+    line: 'manage_etc_hosts: true'
