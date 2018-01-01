@@ -1,0 +1,6 @@
+---
+  - name: Check root ssh password should not work 
+    command: sshpass -p {{ vm_root_passwd }} ssh root@{{ansible_vm.server.public_v4}} 'echo success'
+    register: output
+    ignore_errors: true
+    failed_when: output.rc == 0 

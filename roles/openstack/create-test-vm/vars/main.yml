@@ -1,0 +1,10 @@
+---
+ansible_vm: ansible_vm
+image_id: TODO
+flavor_id: 2
+net_name: TODo
+ext_net: TODO
+vm_ssh_user: ansible_user
+vm_root_passwd: TODO
+vm_ssh_passwd: TODO
+ansible_python_ver_path: /usr/bin/python2

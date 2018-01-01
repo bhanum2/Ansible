@@ -1,0 +1,6 @@
+---
+# use pip version of ansible and shade only
+- name: delete instance
+  os_server:
+    state: absent
+    name: "{{ansible_vm.server.name}}"

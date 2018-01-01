@@ -1,0 +1,22 @@
+---
+    - name: Test swap space
+      command: cat /proc/swaps | wc -l
+      register: swap_output
+      ignore_errors: true
+      failed_when: swap_output == "1" 
+
+    - name: Get hostname
+      command: hostname
+      register: target_hostname
+    
+    - name: Test hostname in /etc/hosts file
+      command: grep  {{ target_hostname.stdout_lines[0] }} /etc/hosts
+      ignore_errors: true
+
+    - name: Test firefox pkg installation works
+      package: 
+        name: firefox
+        state: present
+      become: yes
+      ignore_errors: true
+   

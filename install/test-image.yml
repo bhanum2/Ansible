@@ -1,0 +1,22 @@
+---
+- name: create test vm
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/create-test-vm, sudo: yes}
+
+- name: check ssh root login is disabled
+  hosts: localhost
+  roles:
+   - { role: ssh/test-root-login, sudo yes}
+
+- name: run tests on vm
+  hosts: ansible_vm
+  roles:
+    -  { role: ibm/run-tests, sudo: yes}
+
+- name: delete vm
+  hosts: localhost
+  remote_user: root
+  roles:
+    - { role: openstack/delete-vm, sudo: yes}
