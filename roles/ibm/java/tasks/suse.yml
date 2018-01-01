@@ -1,0 +1,5 @@
+---
+- name: install java
+  zypper:
+    name: java-1_8_0-ibm
+    state: present
