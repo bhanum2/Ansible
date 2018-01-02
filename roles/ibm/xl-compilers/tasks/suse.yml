@@ -7,8 +7,10 @@
 
 - name: Install xlc
   zypper:
-    name: 
-      - xlf
-      - xlc
+    name: xlc.13.1.6
     state: latest
-    update_cache: yes
+
+- name: Install xlf
+  zypper:
+    name: xlf.15.1.6
+    state: latest
