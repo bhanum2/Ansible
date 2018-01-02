@@ -1,0 +1,28 @@
+---
+- name: Add RHEL 7.3 server repo
+  yum_repository:
+    name: Server
+    description: RedHat Enterprise LE Linux 7.3 - Server
+    enabled: True
+    baseurl: http://172.31.255.236/rhel/7/3/ppc64le/server
+
+- name: Add RHEL 7.3 Optional repo
+  yum_repository:
+    name: Optional
+    description: RedHat Enterprise LE Linux 7.3 - Optional
+    enabled: True
+    baseurl: http://172.31.255.236/rhel/7/3/ppc64le/optional
+
+- name: Add RHEL 7.3 supplementary repo
+  yum_repository:
+    name: supplementary
+    description: RedHat Enterprise LE Linux 7.3 -  supplementary
+    enabled: True
+    baseurl: http://172.31.255.236/rhel/7/3/ppc64le/supplementary
+
+- name: Add epel repo
+  yum_repository:
+    name: epel
+    description: epel repo
+    enabled: True
+    mirrorlist: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
