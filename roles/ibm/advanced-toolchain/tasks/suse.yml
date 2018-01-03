@@ -1,0 +1,24 @@
+---
+- name: Add  toolchain repo
+  zypper_repository:
+    name: at11
+    repo: 'ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/suse/SLES_12'
+    state: present
+
+- name: download key
+  get_url: 
+    url: ftp://ftp.unicamp.br/pub/linuxpatch/toolchain/at/redhat/RHEL7/gpg-pubkey-6976a827-5164221b
+    dest: /tmp/gpg-pubkey-6976a827-5164221b
+
+- name: add rpm key
+  rpm_key:
+    key: /tmp/gpg-pubkey-6976a827-5164221b
+    state: present
+
+- name: install at11 pkgs
+  zypper: name={{ item }} state=latest
+  with_items:
+    - advance-toolchain-at11.0-runtime 
+    - advance-toolchain-at11.0-devel 
+    - advance-toolchain-at11.0-perf 
+    - advance-toolchain-at11.0-mcore-libs
