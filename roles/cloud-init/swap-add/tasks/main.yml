@@ -1,0 +1,9 @@
+---
+- name: update swap in cloud.cfg
+  blockinfile:
+    path: /etc/cloud/cloud.cfg
+    insertafter: EOF 
+    marker: "#####"
+    block: |
+       mounts:
+         - [ vda, none, swap, sw, 0, 0 ]

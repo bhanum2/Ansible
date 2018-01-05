@@ -11,6 +11,7 @@
     -  { role: ssh/root-without-passwd, sudo: yes}
     -  { role: cloud-init/set-hostname-always, sudo: yes}
     -  { role: cloud-init/manage-etc-hosts, sudo: yes}
+    -  { role: cloud-init/swap-add, sudo: yes}
     -  { role: ibm/xl-compilers, sudo: yes}
     -  { role: ibm/advanced-toolchain, sudo: yes}
 
