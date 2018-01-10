@@ -7,3 +7,12 @@
   with_fileglob:
     - "{{ role_path }}/files/*"
   when: ansible_os_family=="Suse"
+
+- name: copy jar files to java folder
+  copy:
+    src: "{{ item }}"
+    dest: /usr/lib/jvm/java-1.8.0-ibm-1.8.0.4.5-1jpp.1.el7_3.ppc64le/jre/lib
+    mode: 0755
+  with_fileglob:
+    - "{{ role_path }}/files/*"
+  when: ansible_os_family=="RedHat"

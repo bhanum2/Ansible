@@ -4,6 +4,7 @@
     name: Server
     description: RedHat Enterprise LE Linux 7.3 - Server
     enabled: True
+    gpgcheck: no
     baseurl: http://172.31.255.236/rhel/7/3/ppc64le/server
 
 - name: Add RHEL 7.3 Optional repo
@@ -11,6 +12,7 @@
     name: Optional
     description: RedHat Enterprise LE Linux 7.3 - Optional
     enabled: True
+    gpgcheck: no
     baseurl: http://172.31.255.236/rhel/7/3/ppc64le/optional
 
 - name: Add RHEL 7.3 supplementary repo
@@ -18,6 +20,7 @@
     name: supplementary
     description: RedHat Enterprise LE Linux 7.3 -  supplementary
     enabled: True
+    gpgcheck: no
     baseurl: http://172.31.255.236/rhel/7/3/ppc64le/supplementary
 
 - name: Add epel repo
@@ -25,4 +28,5 @@
     name: epel
     description: epel repo
     enabled: True
+    gpgcheck: no
     mirrorlist: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
