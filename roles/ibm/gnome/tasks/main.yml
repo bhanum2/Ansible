@@ -1,3 +1,6 @@
 ---
+- debug:
+    var: host_vars
+
 - include: redhat.yml
   when: ansible_os_family=="RedHat"
