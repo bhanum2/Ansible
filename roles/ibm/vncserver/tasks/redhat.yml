@@ -1,0 +1,28 @@
+---
+- name: install tiger vnc server
+  yum:
+    name: tigervnc-server
+
+- name: copy pkg list file
+  copy:
+    src: "{{ role_path }}/files/vncserver.service"
+    dest: /etc/systemd/system/vncserver.service
+
+- name: create vnc folder
+  file:
+    path: /root/.vnc
+    state: directory
+    mode: 0755
+
+- name: set vncpassword
+  shell: echo c6j6pqwe | vncpasswd -f > /root/.vnc/passwd
+
+- name: set permission for vncpasswd file
+  file:
+    path: /root/.vnc/passwd
+    mode: 0600
+
+- name: enable vncserver service
+  systemd:
+    name: vncserver.service
+    enabled: yes
