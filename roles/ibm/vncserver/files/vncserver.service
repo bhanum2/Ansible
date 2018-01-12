@@ -6,7 +6,7 @@ After=multi-user.target
 Type=forking
 
 # Clean any existing files in /tmp/.X11-unix environment
-ExecStartPre=/bin/sh -c '/usr/bin/vncserver -kill :0 > /dev/null 2>&1 || :'
+ExecStartPre=/bin/sh -c 'rm -rf /tmp/.X* && /usr/bin/vncserver -kill :0 > /dev/null 2>&1 || :'
 ExecStart=/usr/sbin/runuser -l root -c "/usr/bin/vncserver :0"
 #PIDFile=/root/.vnc/vncserver0.pid
 ExecStop=/bin/sh -c '/usr/bin/vncserver -kill :0 > /dev/null 2>&1 || :'
