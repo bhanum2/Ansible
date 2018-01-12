@@ -1,0 +1,19 @@
+---
+- name: include all ibm roles
+  include_role: 
+    name: ibm/gnome
+
+- include_role: 
+    name: ibm/vncserver
+
+- include_role: 
+    name: ibm/xl-compilers
+
+- include_role: 
+    name: ibm/advanced-toolchain
+
+- include_role: 
+    name: ibm/java
+
+- include_role: 
+    name: ibm/download-director

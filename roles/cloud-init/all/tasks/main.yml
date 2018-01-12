@@ -1,0 +1,11 @@
+---
+- name: include all cloud-init roles
+  include_role:  
+    name : cloud-init/swap-add
+
+- include_role:
+    name: cloud-init/manage-etc-hosts
+
+- include_role:
+    name: cloud-init/set-hostname-always
+    

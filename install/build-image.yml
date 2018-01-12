@@ -5,15 +5,12 @@
   roles:
     - { role: openstack/create-vm, sudo: yes}
 
-- name: install xl compilers and advanced tool chain
+- name: install and configure the vm
   hosts: ansible_vm
   roles:
     -  { role: ssh/root-without-passwd, sudo: yes}
-    -  { role: cloud-init/set-hostname-always, sudo: yes}
-    -  { role: cloud-init/manage-etc-hosts, sudo: yes}
-    -  { role: cloud-init/swap-add, sudo: yes}
-    -  { role: ibm/xl-compilers, sudo: yes}
-    -  { role: ibm/advanced-toolchain, sudo: yes}
+    -  { role: cloud-init/all, sudo: yes}
+    -  { role: ibm/all, sudo: yes}
 
 - name: snap and delete vm
   hosts: localhost
