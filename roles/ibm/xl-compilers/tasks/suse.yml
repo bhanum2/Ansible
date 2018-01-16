@@ -5,6 +5,16 @@
     repo: 'http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/sles12/'
     state: present
 
+- name: download key
+  get_url:
+    url: http://public.dhe.ibm.com/software/server/POWER/Linux/xl-compiler/eval/ppc64le/sles12/repodata/repomd.xml.key
+    dest: /tmp/xl.key
+
+- name: add rpm key
+  rpm_key:
+    key: /tmp/xl.key
+    state: present
+
 - name: Install xlc
   zypper:
     name: xlc.13.1.6
