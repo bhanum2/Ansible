@@ -1,0 +1,5 @@
+---
+- name: install tigervnc
+  zypper:
+    name: tigervnc
+    state: present
