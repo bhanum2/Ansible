@@ -1,0 +1,12 @@
+---
+- include: ubuntu-xenail.yml
+  when: ansible_os_family=="Debian" and ansible_distribution_release == 'xenial'
+
+- include: ubuntu-trusty.yml
+  when: ansible_os_family=="Debian" and ansible_distribution_release == 'trusty'
+
+- include: redhat.yml
+  when: ansible_os_family=="RedHat"
+
+- include: suse.yml
+  when: ansible_os_family=="Suse"

@@ -1,0 +1,13 @@
+---
+- name: install nvidia drivers 
+  yum:
+    name: "{{ nvidia_pkg_url }}"
+    state: present
+
+- name: install cuda drivers
+  yum:
+    name:
+      - nvidia-kmod
+      - cuda-drivers
+    update_cache: yes
+    disable_gpg_check: yes
