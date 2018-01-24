@@ -1,0 +1,5 @@
+---
+- name: copy datasource file
+  copy:
+    src: "{{ role_path }}/files/90_dpkg.cfg"
+    dest: /etc/cloud/cloud.cfg.d/90_dpkg.cfg

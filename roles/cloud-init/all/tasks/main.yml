@@ -9,3 +9,5 @@
 - include_role:
     name: cloud-init/set-hostname-always
     
+- include_role:
+    name: cloud-init/datasource
