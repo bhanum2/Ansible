@@ -1,0 +1,10 @@
+---
+- name: install nvidia drivers 
+  apt:
+    deb: "{{ nvidia_url }}"
+    state: present
+
+- name: install cuda drivers
+  apt:
+    name: cuda-drivers
+    update_cache: yes
