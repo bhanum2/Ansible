@@ -3,7 +3,7 @@
   blockinfile:
     path: /etc/cloud/cloud.cfg
     insertafter: EOF 
-    marker: "#####"
+    marker: "### swap mount ###"
     block: |
        mounts:
          - [ vda, none, swap, sw, 0, 0 ]
