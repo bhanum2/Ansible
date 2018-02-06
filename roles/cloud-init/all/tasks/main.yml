@@ -11,3 +11,6 @@
     
 - include_role:
     name: cloud-init/datasource
+
+- include_role:
+    name: cloud-init/clean-up

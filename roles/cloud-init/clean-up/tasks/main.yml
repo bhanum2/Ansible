@@ -1,0 +1,5 @@
+---
+- name: delete /var/lib/cloud folder
+  file:
+    state: absent
+    path: /var/lib/cloud
