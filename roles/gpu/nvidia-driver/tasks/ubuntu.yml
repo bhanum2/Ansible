@@ -8,3 +8,4 @@
   apt:
     name: cuda-drivers
     update_cache: yes
+    allow_unauthenticated: yes

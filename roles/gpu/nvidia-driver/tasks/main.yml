@@ -4,11 +4,21 @@
   register: v100_output
   ignore_errors: True
 
+- name: check for k80 GPU
+  shell : lspci -nv | grep 10de:102d
+  register: k80_output
+  ignore_errors: True
+
 - name: set the nvidia_url
   set_fact: 
     nvidia_url: "{{ nvidia_ubuntu_v100_url  }}"
   when: ansible_os_family=="Debian" and v100_output.rc==0
  
+- name: set the nvidia_url
+  set_fact: 
+    nvidia_url: "{{ nvidia_ubuntu_k80_url  }}"
+  when: ansible_os_family=="Debian" and k80_output.rc==0
+
 - include: ubuntu.yml
   when: ansible_os_family=="Debian"
 
