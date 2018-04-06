@@ -2,3 +2,4 @@
 nvidia_pkg_url: http://in.download.nvidia.com/tesla/384.111/nvidia-driver-local-repo-rhel7-384.111-1.0-1.ppc64le.rpm
 nvidia_ubuntu_v100_url: http://us.download.nvidia.com/tesla/390.12/nvidia-driver-local-repo-ubuntu1604-390.12_1.0-1_ppc64el.deb
 nvidia_ubuntu_k80_url: http://us.download.nvidia.com/tesla/390.31/nvidia-driver-local-repo-ubuntu1604-390.31_1.0-1_ppc64el.deb
+nvidia_ubuntu_p100_url: http://us.download.nvidia.com/tesla/390.46/nvidia-driver-local-repo-ubuntu1604-390.46_1.0-1_ppc64el.deb
