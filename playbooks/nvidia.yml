@@ -1,0 +1,6 @@
+---
+- name: Install nvidia drivers
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: gpu/nvidia-driver, sudo: yes}
