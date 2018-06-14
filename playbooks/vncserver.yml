@@ -1,0 +1,6 @@
+---
+- name: install vncserver
+  hosts: all
+  remote_user: root
+  roles:
+    - { role: ibm/vncserver, sudo: yes}

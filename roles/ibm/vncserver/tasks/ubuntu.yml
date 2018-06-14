@@ -1,0 +1,13 @@
+---
+- name: install tiger vnc server
+  apt:
+    name: 
+      - tightvncserver
+      - xfce4 
+      - xfce4-goodies
+
+- name: copy vncserver config  file
+  copy:
+    src: "{{ role_path }}/files/ubuntu.vncserver.service"
+    dest: /etc/systemd/system/vncserver.service
+

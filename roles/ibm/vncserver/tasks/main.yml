@@ -8,11 +8,6 @@
 - include: suse.yml
   when: ansible_os_family=="Suse"
 
-- name: copy vncserver config  file
-  copy:
-    src: "{{ role_path }}/files/vncserver.service"
-    dest: /etc/systemd/system/vncserver.service
-
 - name: create vnc folder
   file:
     path: /root/.vnc
@@ -31,3 +26,6 @@
   systemd:
     name: vncserver.service
     enabled: yes
+
+- name: start vnc server
+  systemd: state=started name=vncserver.service

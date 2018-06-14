@@ -3,3 +3,9 @@
   zypper:
     name: tigervnc
     state: present
+
+- name: copy vncserver config  file
+  copy:
+    src: "{{ role_path }}/files/vncserver.service"
+    dest: /etc/systemd/system/vncserver.service
+
