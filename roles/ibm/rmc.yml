@@ -1,0 +1,60 @@
+---
+- hosts: target
+  tasks:
+   - name: remove old pkgs
+     yum: 
+       state: absent
+       name: 
+         - rsct.core 
+         - rsct.basic
+         - src
+         - rsct.core.utils 
+         - ibm-power-repo-3.0.0-17.noarch 
+
+   - name: check if power repo exists
+     stat:
+       path: /etc/yum.repos.d/ibm-power-repo.repo
+     register: powerrepo
+
+   - name: install IBM power pkg
+     yum:
+        state: present
+        name: http://public.dhe.ibm.com/software/server/POWER/Linux/yum/download/ibm-power-repo-3.0.0-19.noarch.rpm
+
+   - name: Add IBM power tools repos
+     yum_repository:
+       name: IBM_Power_Tools
+       description: IBM_Power_Tools
+       file: ibm-power-repo
+       baseurl: http://public.dhe.ibm.com/software/server/POWER/Linux/yum/OSS/RHEL/7/ppc64le
+       gpgcheck: no
+       enabled: yes
+       state: present
+     when: powerrepo.stat.exists == False
+
+   - name: Add IBM Advance Toolchain
+     yum_repository:
+       name: Advance_Toolchain
+       description: Advance Toolchain
+       file: ibm-power-repo
+       baseurl: ftp://public.dhe.ibm.com/software/server/POWER/Linux/toolchain/at//redhat/RHEL7
+       gpgcheck: no
+       enabled: yes
+       state: present
+     when: powerrepo.stat.exists == False
+
+   - name: install rmc pkgs 
+     yum: 
+       state: latest
+       update_cache: yes
+       disable_gpg_check: yes
+       name:
+         - src 
+         - rsct.core.utils 
+         - rsct.core 
+         - rsct.basic 
+         - DynamicRM 
+         - rsct.opt.storagerm 
+
+   - name: running reconfigure command
+     command: /usr/sbin/rsct/install/bin/recfgct 
