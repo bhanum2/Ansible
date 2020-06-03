@@ -1,0 +1,30 @@
+#pip install openstacksdk, future pkgs
+---
+- name: active vm ssh test
+  hosts: localhost
+  tasks:
+          
+       - name: get active vms
+         os_server_info:
+             filters:
+                vm_state: active
+         register: result
+
+       - name: empty ip list 
+         set_fact:
+                 iplist: []
+
+       - name: add ips to ip list
+         set_fact:
+                 iplist: "{{ iplist  +  [ item.interface_ip ]}}"
+         with_items: "{{ result.openstack_servers }}"
+         no_log: true
+
+       - name: "ssh port test "
+         wait_for:
+                 host: "{{ item }}"
+                 port: 22
+                 state: started
+                 delay: 0
+                 timeout: 10
+         with_items: "{{ iplist }}"
