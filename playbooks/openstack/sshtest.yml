@@ -28,3 +28,24 @@
                  delay: 0
                  timeout: 10
          with_items: "{{ iplist }}"
+         register: out
+         ignore_errors: true
+
+       - name: "active vm count"
+         set_fact:
+                 activevms: "{{ out.results | length }}"
+
+       - name: failed counter init
+         set_fact: 
+               failedcount: 0
+
+       - name: failed count evaluate 
+         set_fact:
+                 failedcount: "{{ failedcount | int +  1 }}"
+         with_items: "{{ out.results }}"
+         when:  item.failed == true
+         no_log: true
+
+       - name: "Active and ssh test result"
+         debug:
+               msg: "Active vms {{ activevms }} failed {{ failedcount }}"
