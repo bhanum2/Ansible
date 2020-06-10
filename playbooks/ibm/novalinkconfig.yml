@@ -1,0 +1,96 @@
+---
+- name: Novalink customization
+  hosts: all
+  tasks:
+       - name: copy ssh key
+         authorized_key:
+           user: padmin
+           state: present
+           key: ssh-rsa TODO 
+
+       - name: Add padmin to sudoers file
+         lineinfile:
+           dest: /etc/sudoers
+           state: present
+           regexp: '^%padmin'
+           line: '%padmin ALL=(ALL) NOPASSWD: ALL'
+         become: true
+ 
+       - name: Add dns entry 
+         lineinfile:
+           dest: /etc/resolv.conf
+           state: present
+           line: 'nameserver 8.8.8.8'
+         become: true
+
+       - name: check if 1G sea exits
+         shell: "pvmctl sea list --display-fields PVID | grep 2 | wc -l " 
+         register: seaout
+
+       - name: get 1G ent interface
+         shell: |
+                 pvmctl vios list --display-fields IOAdapterChoice.description IOAdapterChoice.dev_name |
+                 grep PCI-Express | head -1 | cut -f2 -d ',' | cut -f2 -d '='
+         register: entout
+         when: seaout.stdout == "0"
+
+       - name: sea create 
+         command: pvmctl sea create --vswitch-name ETHERNET0 --vios-adapters vios1 {{ entout.stdout }} --pvid 2
+         when: seaout.stdout == "0"
+
+       - name: check if vea is created
+         shell: "pvmctl vea list -d PVID | grep pvid=2 | wc -l"
+         register: out
+
+       - name: vea create
+         shell: pvmctl vea create --pvid 2 --vswitch ETHERNET0 --parent-id id=1
+         when: out.stdout == "1"
+
+       - name: get new interface name
+         shell: "ip -o link | grep -v UP | awk '{ print $2}' | tr -d :"
+         register: neweth
+
+       - name: comment out the 192 interface gateway
+         replace:
+              path: /etc/network/interfaces
+              regexp: '^(.*gateway.*192.*)$'
+              replace: '#\1'
+         become: true
+
+       - name: update the {{ neweth.stdout }} ip info in interface file
+         blockinfile:
+             path: /etc/network/interfaces
+             block: |
+                auto {{ neweth.stdout }}
+                iface {{ neweth.stdout }} inet static
+                        address {{ ip1 }}
+                        netmask 255.255.192.0
+                        gateway 172.31.255.254
+                        dns-nameservers 172.31.192.2
+                        dns-search pub.pic2.ibm.com
+         become: true
+         when: neweth.stdout  is defined
+
+       - name: delete the default gateway
+         command: ip route del 0/0
+         become: true
+         ignore_errors: true
+
+       - name: restart networking service
+         systemd:
+              state: restarted
+              daemon_reload: yes
+              name: networking
+         become: true
+
+
+       - name: copy apt source list file
+         copy:
+              src: /etc/apt/sources.list
+              dest: /etc/apt/sources.list 
+         become: true
+      
+       - name: apt update
+         apt:
+               update_cache: yes
+         become: true

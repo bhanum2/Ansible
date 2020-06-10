@@ -1,0 +1,2 @@
+[all]
+192.ip ansible_connection=ssh ansible_ssh_user=padmin ansible_ssh_pass=TODO ansible_sudo_pass=TODO ip1=TODO
